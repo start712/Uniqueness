@@ -12,6 +12,7 @@ import os
 import bs4
 import json
 import requests
+import traceback
 
 sys.path.append(sys.prefix + "\\Lib\\MyWheels")
 reload(sys)
@@ -76,6 +77,7 @@ class crawler0(object):
             except:
                 log_obj.error(title)
                 log_obj.error(urls[title])
+                log_obj.error(traceback.format_exc())
 
     def area_parser(self, bs_obj):
         e_li = bs_obj.find('ul',class_='areaList').li
