@@ -64,17 +64,18 @@ class crawler0(object):
                 if os.path.exists(targetfile):
                     print 'pass'
                     continue
-                #driver = PhantomJS_driver.initialization()
-                #driver.get(urls[title])
-                #bs_obj = bs4.BeautifulSoup(driver.page_source, 'html.parser')
-                #driver.quit()
-                bs_obj = bs4.BeautifulSoup(requests_manager.get_html(urls[title]), 'html.parser')
+                driver = PhantomJS_driver.initialization()
+                driver.get(urls[title])
+                bs_obj = bs4.BeautifulSoup(driver.page_source, 'html.parser')
+                driver.quit()
+                #bs_obj = bs4.BeautifulSoup(requests_manager.get_html(urls[title]), 'html.parser')
                 if bs_obj.find('ul',class_='areaList'):
                     bs_obj = self.area_parser(bs_obj)
 
                 self.list_parser(bs_obj, title, targetfile)
             except:
-                log_obj.error(title , urls[title])
+                log_obj.error(title)
+                log_obj.error(urls[title])
 
     def area_parser(self, bs_obj):
         e_li = bs_obj.find('ul',class_='areaList').li
